@@ -196,7 +196,10 @@ const mylib = {
                     result[i * 4 + j] = sum;
                 }
             }
-            return this = result;
+            for (let i = 0; i < 16; i++) {
+                this[i] = result[i];
+            }
+            return this;
         }
         static perspective(fov, aspect, zNear, zFar) {
             const focalLength = Math.tan(Math.PI / 2 - fov / 2);
@@ -315,7 +318,7 @@ const mylib = {
             var t2 = (tmp2 * m01 + tmp7 * m11 + tmp10 * m31) - (tmp3 * m01 + tmp6 * m11 + tmp11 * m31);
             var t3 = (tmp5 * m01 + tmp8 * m11 + tmp11 * m21) - (tmp4 * m01 + tmp9 * m11 + tmp10 * m21);
             var d = 1 / (m00 * t0 + m10 * t1 + m20 * t2 + m30 * t3);
-            return this = new mylib.Matrix4fv(
+            const matrix = [
                 d * t0,
                 d * t1,
                 d * t2,
@@ -332,7 +335,11 @@ const mylib = {
                 d * ((tmp20 * m32 + tmp12 * m02 + tmp19 * m22) - (tmp18 * m22 + tmp21 * m32 + tmp13 * m02)),
                 d * ((tmp18 * m12 + tmp23 * m32 + tmp15 * m02) - (tmp22 * m32 + tmp14 * m02 + tmp19 * m12)),
                 d * ((tmp22 * m22 + tmp16 * m02 + tmp21 * m12) - (tmp20 * m12 + tmp23 * m22 + tmp17 * m02))
-            );
+            ];
+            for (let i = 0; i < 16; i++) {
+                this[i] = matrix[i];
+            }
+            return this;
         }
     }
 };
